@@ -1,0 +1,340 @@
+<div class="alert  alert-dismissable {{error && 'alert-danger'|| 'alert-success'}}" ng-if="message" style="display:{{message && 'block'|| 'none'}}">
+    <button type="button" class="close" onclick="$('.alert').hide()">×</button>
+    {{message}}
+</div>
+<div class="col-md-12">
+    <!--Sidebar content-->
+    <div style="margin-bottom: 50px;">
+        <h3 class="page-header">Welcome to Dashboard</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="col-md-12">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="col-xs-2 col-md-2">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 col-md-10 text-right">
+                                <div class=""><h3><a href="#/coin-rule" style="color:#ffffff">Coin Rule</a></h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left"><a href="#/coin-rule-add-edit/new">Add New</a></span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="col-xs-2 col-md-2">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 col-md-10 text-right">
+                                <div class=""><h3><a href="#/daily-check-in-rule" style="color:#ffffff">Daily Check-In Rule</a></h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left"><a href="#/daily-check-in-rule-add-edit/new">Add New</a></span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="col-xs-2 col-md-2">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 col-md-10 text-right">
+                                <div class=""><h3><a href="#/dwell-time-rule" style="color:#ffffff">Dwell Time Rule</a></h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left"><a href="#/dwell-time-rule-add-edit/new">Add New</a></span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="col-xs-2 col-md-2">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 col-md-10 text-right">
+                                <div class=""><h3><a href="#/rule-profile-completion-list" style="color:#ffffff">Profile Completion Rule</a></h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left"><a href="#/rule-profile-completion-add-edit/new">Add New</a></span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="col-xs-2 col-md-2">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 col-md-10 text-right">
+                                <div class=""><h3><a href="#/product-approval-list" style="color:#ffffff">Product Approval</a></h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left"><a href="#/product-approval-add-edit/new">Add New</a></span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="col-xs-2 col-md-2">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 col-md-10 text-right">
+                                <div class=""><h3><a href="#/referral-rule" style="color:#ffffff">Referral Rule</a></h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left"><a href="#/referral-rule-add-edit/new">Add New</a></span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="col-xs-2 col-md-2">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 col-md-10 text-right">
+                                <div class=""><h3><a href="#/rule-share-to-social-media-list" style="color:#ffffff">Share To Social Media Rule</a></h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left"><a href="#/rule-share-to-social-media-add-edit/new">Add New</a></span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="col-xs-2 col-md-2">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 col-md-10 text-right">
+                                <div class=""><h3><a href="#/coin-list" style="color:#ffffff">Coin</a></h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left"><a href="#/coin-add-edit/new">Add New</a></span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="col-xs-2 col-md-2">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 col-md-10 text-right">
+                                <div class=""><h3><a href="#/coin-bundle-list" style="color:#ffffff">Coin Bundle</a></h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left"><a href="#/coin-bundle-add-edit/new">Add New</a></span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="col-xs-2 col-md-2">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 col-md-10 text-right">
+                                <div class=""><h3><a href="#/role-list" style="color:#ffffff">Roles</a></h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left"><a href="#/role-add-edit/new">Add New</a></span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="col-md-12">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="col-xs-2 col-md-2">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 col-md-10 text-right">
+                                <div class=""><h3><a href="#/admin-coin-transaction/sell" style="color:#ffffff">Coin Sell</a></h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="col-xs-2 col-md-2">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 col-md-10 text-right">
+                                <div class=""><h3><a href="#/admin-coin-transaction/buy" style="color:#ffffff">Coin Buy</a></h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="col-xs-2 col-md-2">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 col-md-10 text-right">
+                                <div class=""><h3><a href="#/product-list" style="color:#ffffff">Product</a></h3></div>
+                            </div>
+                        </div>                                
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left"><a href="#/product-add-edit/new">Add New</a></span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="col-xs-2 col-md-2">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 col-md-10 text-right">
+                                <div class=""><h3><a href="#/coin-exchange-rate" style="color:#ffffff">Coin Exchange Rate</a></h3></div>
+                            </div>
+                        </div>                                
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

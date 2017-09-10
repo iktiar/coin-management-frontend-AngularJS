@@ -1,0 +1,44 @@
+<div class="alert  alert-dismissable {{coinTransferStatus && 'alert-success'|| 'alert-danger'}}" ng-if="show_status_message" style="display:{{show_status_message && 'block' || 'none'}}">
+    <button type="button" class="close" onclick="$('.alert').hide()">×</button>
+    {{coinTransferStatusMsg}}
+</div>
+
+<div class="col-md-10">
+    <h3>Bonus Approval</h3>
+    
+    <div class="input-group custom-search-form col-md-4">
+        <input type="text" class="form-control" placeholder="Search..." ng-model="search">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button">
+                <i class="fa fa-search"></i>
+            </button>
+        </span>
+    </div>
+
+    <div> <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></div>
+    <table class="table" >
+        <thead>
+            <tr>
+                <th class="text-center">User Id</th>
+                <th>Total Approvable Coin</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr dir-paginate="coin in userlist| filter:search | itemsPerPage: pageSize" current-page="currentPage"  >
+                <td class="text-center">{{ coin.userId}}</td>
+                <td><input class="form-control" type="text"  ng-model="coin.quantityRemaining" min="0" max="{{coin.quantityRemaining}}" value="{{coin.quantityRemaining}}" only-digits></td>
+                <td> <button  ng-disabled="loading" ng-click="approveBonus((coin.quantityRemaining), coin.coinId, coin.userId)" class="btn btn-primary">Approve</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div  class="other-controller">
+        <div class="text-center float_left" style="float:left;">
+            <dir-pagination-controls boundary-links="true" max-size="10" auto-hide="false" template-url="directives/dirPagination.tpl.html"></dir-pagination-controls>
+        </div>
+        <div class="text-center pagination_row_count" >
+            <label>Row count</label>  <input class="form-control pagination_row_count_input"  type="number" min="1" max="100"  placeholder="perpage..." ng-model="pageSize">
+        </div>
+    </div>
+</div>   

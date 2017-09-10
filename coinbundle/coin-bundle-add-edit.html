@@ -1,0 +1,85 @@
+<div class="alert  alert-dismissable {{error && 'alert-danger'|| 'alert-success'}}" ng-if="message" style="display:{{message && 'block' || 'none'}}">
+    <button type="button" class="close" onclick="$('.alert').hide()">×</button>
+    {{message}}
+</div>
+<h3 class="form-heading">{{operation}} Coin Bundle</h3>		
+
+<div >
+    <form  name="coinBundleForm" ng-submit="coinBundleForm.$valid && handleSubmit()" novalidate>
+        <div class="row">  
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <label >Bundle Type</label>
+                    <select class="form-control" ng-options="type.bundleTypeName for type in bundleTypes track by type.bundleTypeId" ng-model="bundleTypes.selectedBundle" ng-required="required"></select>
+                </div>
+
+                <div class="form-group">
+                    <label >Payment Method</label>
+                    <select class="form-control" ng-options= "paymentMethodType.paymentMethodTypeName for  paymentMethodType in paymentMethodItems track by paymentMethodType.paymentMethodTypeId" ng-model="paymentMethodItems.selectedPaymentMethod" ng-required="required"></select>
+                </div>
+                <div class="form-group" >
+                    <label for="networkName">Network</label>
+                    <select class="form-control" ng-options="network.networkName for network in networkList track by network.networkId" 
+                            ng-model="networkList.selectedItem" ng-required="required" ng-change="getCoinExchangeRateFromLocalDB();"></select>
+                </div>
+                <div class="form-group">
+                    <label >Currency</label>
+                    <select class="form-control" ng-options= "coinExchangeRate.currencyName for  coinExchangeRate in coinExchangeRates track by coinExchangeRate.isoCode" ng-model="coinExchangeRates.selectedItem" ng-required="required"></select>
+                </div>
+                <div class="form-group">
+                    <label for="coinId" >Coin</label>
+                    <select class="form-control" ng-options="coin.coinName for coin in coins track by coin.coinId" ng-model="coins.selectedCoin" ng-required="required"></select>
+                </div>                
+
+                <div class="form-group" ng-class="{ 'has-error': coinBundleForm.$submitted && coinBundleForm.coinQuantity.$invalid }">
+                    <label for="coinQuantity" >Coin Quantity</label>
+                    <input name="coinQuantity" class="form-control" id="coinQuantity" ng-model="coinBundle.coinQuantity" required only-digits >
+                    <div ng-messages="coinBundleForm.$submitted && coinBundleForm.coinQuantity.$error" class="help-block">
+                        <div ng-message="required">Coin Quantity is required</div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': coinBundleForm.$submitted && coinBundleForm.freeCoinQuantity.$invalid }">
+                    <label for="freeCoinQuantity" >Free Coin Quantity</label>
+                    <input name="freeCoinQuantity" class="form-control" id="freeCoinQuantity" ng-model="coinBundle.freeCoinQuantity" required only-digits min="0">
+                    <div ng-messages="coinBundleForm.$submitted && coinBundleForm.freeCoinQuantity.$error" class="help-block">
+                        <div ng-message="required">Free Coin Quantity is required</div>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="coinBundle.coinQuantity">
+                    <label for="bundlePrice" >Suggested bundle price {{coinExchangeRates.selectedItem.buyRate*coinBundle.coinQuantity | number:2}}</label>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': coinBundleForm.$submitted && coinBundleForm.bundlePrice.$invalid }">
+                    <label for="bundlePrice" >Bundle Price  </label>
+                    <input name="bundlePrice" type="number" class="form-control" id="bundlePrice" ng-model="coinBundle.bundlePrice"  >
+                    <div ng-messages="coinBundleForm.$submitted && coinBundleForm.bundlePrice.$invalid" class="help-block">
+                        <div ng-show="coinBundleForm.$submitted && coinBundleForm.bundlePrice.$invalid">Minimum {{coinExchangeRates.selectedItem.buyRate*coinBundle.coinQuantity | number:2}} Bundle Price is required</div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': coinBundleForm.$submitted && coinBundleForm.externalProductId.$invalid }">
+                    <label for="externalProductId" >External Product Id</label>
+                    <input name="externalProductId" class="form-control" id="externalProductId" ng-model="coinBundle.externalProductId"  >
+                </div>
+                
+                <div class="form-group" >
+                    <label for="ruleName" >Custom Message</label>
+                    <input name="customMessage" class="form-control" id="customMessage" ng-model="coinBundle.customMessage">
+                </div>
+                <div class="form-group">
+                    <label for="isApplicableForFirstTime" >Is Free Coin Quantity Applicable For The First Time Only?</label>
+                    <input name="isApplicableForFirstTime" id="isApplicableForFirstTime" ng-model="coinBundle.isApplicableForFirstTime" type="checkbox" value="true">
+                </div>
+
+                <div class="form-group">
+                    <label for="active" >Active</label>
+                    <input name="active" id="active" ng-model="coinBundle.active" type="checkbox" value="true">
+                </div>
+
+                <div class="form-group">
+                    <button ng-disabled="loading" class="btn btn-primary" ng-click="checkValidBundlePrice()" >Save</button>
+                    <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,84 @@
+<div class="alert  alert-dismissable {{error && 'alert-danger'|| 'alert-success'}}" ng-if="message" style="display: {{message && 'block' || 'none'}}">
+    <button type="button" class="close" onclick="$('.alert').hide()">×</button>
+     {{message}}
+</div>
+<h3 class="form-heading" ng-show="cashoutApprovalLog.cashOutRequestStatus == 4">View Cashout Request Processing</h3>
+<h3 class="form-heading" ng-show="cashoutApprovalLog.cashOutRequestStatus != 4">Update Cashout Request Processing</h3>
+<div >
+    <form name="form" ng-submit="form.$valid && handleSubmit()" novalidate>
+        <div class="row">  
+            <div class="col-md-4">
+                <div class="form-group" >
+                    <label  >Payment Method</label>
+                    <label class="normal_text" >: {{cashoutApprovalLog.paymentMethodTypeName}}</label>
+                </div>
+                <div class="form-group" ng-show="cashoutApprovalLog.branchName != null" >
+                     <div class="form-group">
+                         <label>Bank Name </label>: <label class="normal_text" > {{ cashoutApprovalLog.bankName }} </label>
+                     </div>
+                    
+                     <div class="form-group "><label>Branch Name</label>: <label class="normal_text" > {{ cashoutApprovalLog.branchName }} </label></div>
+                    
+                     <div class="form-group"><label>Account Number </label>: <label class="normal_text" > {{ cashoutApprovalLog.accountNumber }} </label></div>
+                    
+                     <div class="form-group"><label>Routing Number </label>: <label class="normal_text" > {{ cashoutApprovalLog.routingNumber }} </label></div>
+                   
+                </div>
+                <div class="form-group"  ng-show="cashoutApprovalLog.userAccountId != null" >
+                    <div class="form-group"> <label> {{cashoutApprovalLog.paymentMethodTypeName}} </label>: <label class="normal_text" > {{ cashoutApprovalLog.userAccountId }} </label> </div>
+                </div>
+                <div class="form-group" >
+                    <label  >Reference</label>
+                    <label  class="normal_text" >: {{cashoutApprovalLog.referenceId}}</label>
+                </div>
+                <div class="form-group" >
+                    <label  >User Id</label>
+                    <label  class="normal_text" >: {{cashoutApprovalLog.userId}}</label>
+                </div>
+                               
+                <div ng-show="approvalOptions.selectedApprovalStatus.id != 4" class="form-group" >
+                    <label  >Cash Amount</label>
+                    <label  class="normal_text" >: {{cashoutApprovalLog.cashAmount}} {{cashoutApprovalLog.currencyISOCode}}</label>
+                </div>
+                <div ng-show="approvalOptions.selectedApprovalStatus.id == 4" class="form-group" >
+                    <label>Cash Amount:</label>
+                    <label class="normal_text ng-binding"><input ng-readonly="cashoutApprovalLog.cashOutRequestStatus == 4" type="number"  ng-model="cashoutApprovalLog.cashAmount" value="{{cashoutApprovalLog.cashAmount}}" min="0" class="form-control" style="width:100px;"></label>
+                     <label class="normal_text" >{{cashoutApprovalLog.currencyISOCode}}</label>
+                </div>
+                
+                <div class="form-group" >
+                    <label>Coin Quantity</label>
+                    <label class="normal_text" >: {{cashoutApprovalLog.coinAmount}}</label>
+                </div>
+                <div class="form-group">
+                    <label>Approval</label>
+                    <select ng-readonly="cashoutApprovalLog.cashOutRequestStatus == 4" class="form-control" ng-options="option.name for option in approvalOptions track by option.id" ng-model="approvalOptions.selectedApprovalStatus" ></select>
+                </div>
+                <div  class="form-group" ng-show="approvalOptions.selectedApprovalStatus.id == 4"  ng-class="{ 'has-error': form.$submitted && form.transactionId.$invalid }">
+                    <label for="transactionId" >Transaction id</label>
+                    <input ng-readonly="cashoutApprovalLog.cashOutRequestStatus == 4"  type="text" name="transactionId" class="form-control" id="transactionId" ng-model="cashoutApprovalLog.transactionId"  ng-required="approvalOptions.selectedApprovalStatus.id == 4"  >
+                    <div ng-messages="form.$submitted && form.transactionId.$error" class="help-block">
+                        <div ng-message="required">Transaction Id Is Required</div>
+                    </div>
+                </div>                
+                <div class="form-group " ng-class="{ 'has-error': form.$submitted && form.remarks.$invalid }">
+                    <label for="remarks" >Admin Remarks</label>
+                    <textarea ng-readonly="cashoutApprovalLog.cashOutRequestStatus == 4" rows="4" name="remarks" class="form-control" id="remarks" ng-model="cashoutApprovalLog.remarks" required  ></textarea>
+                    <div ng-messages="form.$submitted && form.remarks.$error" class="help-block">
+                        <div ng-message="required">Admin Remarks is Required</div>
+                    </div>
+                </div>
+                
+                <div ng-show="cashoutApprovalLog.cashOutRequestStatus == 4" class="form-group">
+                    <a href="#/cashout-list" class="btn btn-primary" >Back to Cashout list</button></a>
+                    <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                </div>
+                <div  ng-show="cashoutApprovalLog.cashOutRequestStatus != 4" class="form-group">
+                    <button ng-disabled="loading" class="btn btn-primary" >Submit</button>
+                    <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

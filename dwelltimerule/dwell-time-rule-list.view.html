@@ -1,0 +1,52 @@
+<div class="alert  alert-dismissable {{error && 'alert-danger'|| 'alert-success'}}" ng-if="message" style="display:{{message && 'block' || 'none'}}">
+    <button type="button" class="close" onclick="$('.alert').hide()">×</button>
+    {{message}}
+</div>
+<h3>Dwell Time Rule List</h3>
+
+<div class="input-group custom-search-form col-md-3">
+    <input type="text" class="form-control" placeholder="Search..." ng-model="search">
+    <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+            <i class="fa fa-search"></i>
+        </button>
+    </span>
+</div>
+<div class="bs-example4" data-example-id="contextual-table">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Rule Name</th>
+            <th>Coin</th>
+            <th class="text-center">Coin Quantity</th>
+            <th class="text-center">Dwell Time In Minute</th>
+            <th>Description</th>
+            <th>Active</th>
+            <th>Action</th>
+            
+        </tr>
+        </thead>
+        <tbody class="table-hover">
+            <tr dir-paginate="rule in dwellTimeRules | filter:search | itemsPerPage: pageSize" current-page="currentPage">
+                <td>{{rule.ruleName}}</td>
+                <td>{{rule.coinName}}</td>
+                <td class="text-center">{{rule.coinQuantity}}</td>
+                <td class="text-center">{{rule.dwellTimeInMinute}}</td>
+                <td>{{rule.description}}</td>
+                <td>{{rule.active && 'active'|| 'inactive'}}</td>
+                <td><a href="#/dwell-time-rule-add-edit/{{rule.ruleDailyTaskDwellTimeId}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+                <input class="btn btn-danger" type="button" value="Delete" ng-click="deleteDwellTimeRule(rule.ruleDailyTaskDwellTimeId)"></td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<a href="#/dwell-time-rule-add-edit/new" class="btn btn-primary">Add New</a>
+<div  class="other-controller" >
+    <div class="text-center float_left">
+        <dir-pagination-controls boundary-links="true" max-size="10"  auto-hide="false"  template-url="directives/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+    <div class="text-center pagination_row_count" >
+              <label>Row count</label>  <input class="pagination_row_count_input form-control" type="number" min="1" max="100"  placeholder="perpage..." ng-model="pageSize">
+    </div>
+</div>

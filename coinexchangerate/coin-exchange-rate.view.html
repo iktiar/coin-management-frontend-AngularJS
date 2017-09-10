@@ -1,0 +1,73 @@
+<div class="alert  alert-dismissable {{error && 'alert-danger'|| 'alert-success'}}" ng-if="message" style="display:{{message && 'block'|| 'none'}}">
+    <button type="button" class="close" onclick="$('.alert').hide()">×</button>
+    {{message}}
+</div>
+<h3 class="form-heading">Coin Exchange Rate</h3>
+<div >
+    <form name="form" ng-submit="form.$valid" novalidate>
+        <div class="row">  
+            <div class="col-md-4">
+                <div class="form-group" >
+                    <label for="networkName">Network</label>
+                    <select class="form-control" ng-options="network.networkName for network in networkList track by network.networkId" 
+                            ng-model="networkList.selectedItem" ng-required="required" ng-change="getCoinExchangeRateFromLocalDB();"></select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group" >
+                    <label for="coinName">Coin</label>
+                    <select class="form-control" ng-options="coin.coinName for coin in coinList track by coin.coinId" 
+                            ng-model="coinList.selectedItem" ng-required="required" ng-change="getCoinExchangeRateFromLocalDB();"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <button ng-disabled="loadingHandleSubmit" class="btn btn-primary" ng-click="handleSubmit();">Save</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <button ng-disabled="loadingCoinExchangeRate" class="btn btn-primary" ng-click="exchangeRateSuggestion();">Exchange Rate Suggestion</button>
+                    <br/>(* N.B Base Currency: {{networkList.selectedItem.currencyISOCode}}, suggestion based on international exchange rate.)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                <table class="table" ng-if="coinExchangeRates.length">
+                    <thead>
+                        <tr>
+                            <th>Currency Name</th>
+                            <th>ISO Code</th>
+                            <th>Buy Rate</th>
+                            <th>Sell Rate</th>
+                            <th>Active</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="coinExchangeRate in coinExchangeRates">
+                            <td>{{ coinExchangeRate.currencyName }}</td>
+                            <td>{{ coinExchangeRate.isoCode }}</td>
+                            <td ng-class="{ 'has-error': coinExchangeRate.invalid }">
+                                <input class="form-control" type="text"  ng-model="coinExchangeRate.buyRate" value="{{coinExchangeRate.buyRate}}" only-digits desimal-allowed="true"  min-value="0" required ng-change="valueChanged(coinExchangeRate);">
+                                <div ng-class="{ 'has-error': coinExchangeRate.invalid }" class="help-block" ng-if="coinExchangeRate.invalid">
+                                   <div ng-class="{ 'has-error': coinExchangeRate.invalid }">Buy Rate is required</div>
+                                </div>
+                            </td>
+                            <td>{{coinExchangeRate.buyRate}}</td>
+                            <td><input type="checkbox" name="active" ng-model="coinExchangeRate.active" value="{{ coinExchangeRate.active }}" ng-change="valueChanged(coinExchangeRate);"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8" style="text-align:right">
+                <a href="javascript:window.scrollTo(0, 0)">Go To Top</a>
+            </div>
+        </div>
+    </form>
+</div>

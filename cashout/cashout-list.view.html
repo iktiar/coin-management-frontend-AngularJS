@@ -1,0 +1,87 @@
+<div class="alert  alert-dismissable {{error && 'alert-danger'|| 'alert-success'}}" ng-if="message" style="display:{{message && 'block'|| 'none'}}">
+    <button type="button" class="close" onclick="$('.alert').hide()">×</button>
+    {{message}}
+</div>
+<h3>Cashout Request Logs</h3>
+<div class="row form-inline">
+    <div class="col-md-3">
+        <div class="input-group custom-search-form col-md-12">
+            <input type="text" class="form-control" placeholder="Search..." ng-model="search">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+    <select class="form-control " ng-options="option.name for option in approvalOptions track by option.id" ng-model="approvalOptions.selectedApprovalStatus" ng-change="filterByDate(approvalOptions.selectedApprovalStatus)"></select>
+    </div>
+    <div class="col-md-2">
+        <datepicker date-format="MMMM d, y">
+            <input placeholder="start date" class="form-control" ng-model="fromDate" type="text"/>
+        </datepicker>
+    </div>    
+    <div class="col-md-2">    
+        <datepicker date-format="MMMM d, y">
+            <input placeholder="end date" class="form-control" ng-model="toDate" type="text"/>
+        </datepicker>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-default" type="button" ng-click="filterByDate(approvalOptions.selectedApprovalStatus)">
+            <i class="fa fa-search"></i>
+        </button>
+    
+        <input type="button" class="btn btn-primary" value="Clear"  text="Clear" ng-click="reset()">
+    </div>
+</div>
+<div class="bs-example4" data-example-id="contextual-table">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>CashOut RequestId</th>
+                <th>Reference</th>
+                <th>User Id</th>
+                <th>Payment Method</th>
+                <th>Cash Amount</th>
+                <th>Coin Quantity</th>
+                <th ng-show="approvalOptions.selectedApprovalStatus.id == 4">Transaction id</th>
+                <th>Remarks</th>
+                <th>Requested</th>
+                <th ng-show="approvalOptions.selectedApprovalStatus.id == 4">Approved</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody class="table-hover">
+            <tr dir-paginate="log in cashoutApprovalLogs | filter:search | itemsPerPage: pageSize" current-page="currentPage">
+                <td>{{log.cashOutRequestLogId}}</td> 
+                <td>{{log.referenceId}}</td>
+                <td>{{log.userId}}</td>
+                <td>{{log.paymentMethodTypeName}}</td>
+                <td>{{log.cashAmount}}</td>
+                <td>{{log.coinAmount}}</td>
+                <td ng-show="approvalOptions.selectedApprovalStatus.id == 4">{{log.transactionId}}</td>
+                <td>{{log.remarks}}</td>
+                <td>{{log.created}}</td>
+                <td ng-show="approvalOptions.selectedApprovalStatus.id == 4">{{log.lastModified}}</td>
+                <td ng-show="approvalOptions.selectedApprovalStatus.id != 4">
+                    <a  href="#/cashout-add-edit/{{log.cashOutRequestLogId}}/{{log.paymentMethodTypeId}}" class="btn btn-primary">Process cashout</a>&nbsp;&nbsp;
+                </td>
+                <td ng-show="approvalOptions.selectedApprovalStatus.id == 4">
+                    <a  href="#/cashout-add-edit/{{log.cashOutRequestLogId}}/{{log.paymentMethodTypeId}}" class="btn btn-primary">Cashout Details</a>&nbsp;&nbsp;
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<div  class="other-controller" >
+    <div class="text-center float_left">
+        <dir-pagination-controls boundary-links="true" max-size="10"  auto-hide="false"  template-url="directives/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+    <div class="text-center pagination_row_count" >
+        <label>Row count</label>  <input class="pagination_row_count_input form-control" type="number" min="1" max="100"  placeholder="perpage..." ng-model="pageSize">
+    </div>
+</div>

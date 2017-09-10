@@ -1,0 +1,87 @@
+<div class="alert  alert-dismissable {{error && 'alert-danger'|| 'alert-success'}}" ng-if="message" style="display:{{message && 'block'|| 'none'}}">
+    <button type="button" class="close" onclick="$('.alert').hide()">×</button>
+    {{message}}
+</div>
+<h3 class="form-heading">{{operation}} User</h3>
+<div >
+    <form name="form" ng-submit="form.$valid && handleSubmit()" novalidate>
+        <div class="row">  
+            <div class="col-md-4">
+                <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.email.$invalid }">
+                    <label for="email" >Email</label>
+
+                    <input class="form-control" type="email" name="email" ng-model="email" required max="255"/>
+                    <div ng-show="form.$submitted && form.email.$invalid" class="help-block">
+                        <div>Valid Email is required</div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label >User Type</label>
+                    <select class="form-control" ng-options="item.userType for item in userTypeList track by item.userTypeId" ng-model="userTypeList.selectedItem" ng-required="required"></select>
+                </div>
+
+
+                <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.firstName.$invalid }">
+                    <label for="firstName" >First Name</label>
+
+                    <input class="form-control" type="text" name="firstName" ng-model="firstName" required />
+                    <div ng-messages="form.$submitted && form.firstName.$error" class="help-block">
+                        <div ng-message="required">First name is required</div>
+                    </div>
+
+                </div>
+
+                <div class="form-group"  ng-class="{ 'has-error': form.$submitted && form.address.$invalid }">
+                    <label for="address">Address</label>
+                    <textarea name="address" ng-model="address" class="form-control" rows="3" required/></textarea>   
+                    <div ng-messages="form.$submitted && form.address.$error" class="help-block">
+                        <div ng-message="required">Address is required</div>
+                    </div>
+                </div>                
+            </div>
+            <div class="col-md-4">
+                <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.password.$invalid }">
+                    <label for="password" >Password</label>
+                    <input type="password" class="form-control" name="password" ng-model="password" autocomplete="new-password" required />
+                    <div ng-messages="form.$submitted && form.password.$error" class="help-block">
+                        <div ng-message="required">Password is required</div>
+                    </div>
+
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.mobileNo.$invalid }">
+                    <label for="mobileNo" >Mobile No</label>
+
+                    <input class="form-control" type="text" name="mobileNo" ng-model="mobileNo" required />
+                    <div ng-messages="form.$submitted && form.mobileNo.$error" class="help-block">
+                        <div ng-message="required">Mobile no is required</div>
+                    </div>
+
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.lastName.$invalid }">
+                    <label for="lastName" >Last Name</label>
+
+                    <input class="form-control" type="text" name="lastName" ng-model="lastName" required />
+                    <div ng-messages="form.$submitted && form.lastName.$error" class="help-block">
+                        <div ng-message="required">Last name is required</div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="active" >Active</label>
+                      
+                    <input  type="checkbox" name="active" ng-model="active" value="true"/>
+
+                </div>
+
+                <div class="form-group">
+                    <button ng-disabled="loading" class="btn btn-primary">Save</button>
+                    <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>

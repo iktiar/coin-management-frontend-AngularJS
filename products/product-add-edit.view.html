@@ -1,0 +1,72 @@
+<div class="alert  alert-dismissable {{error && 'alert-danger'|| 'alert-success'}}" ng-if="message" style="display:{{message && 'block' || 'none'}}">
+    <button type="button" class="close" onclick="$('.alert').hide()">×</button>
+    {{message}}
+</div>
+<h3 class="form-heading">{{operation}} Product</h3>
+<div >
+    <form name="form" ng-submit="form.$valid && handleSubmit()" novalidate>
+        <div class="row">  
+            <div class="col-md-4">
+                <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.productName.$invalid }">
+                    <label for="productName" >Product Name</label>
+                        <input class="form-control" type="text" name="productName" ng-model="productName" required />
+                        <div ng-messages="form.$submitted && form.productName.$error" class="help-block">
+                            <div ng-message="required">Product Name is required</div>
+                        </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.productTypeId.$invalid }">
+                    <label >Product type</label>
+                    <select class="form-control" ng-options="item.productTypeName for item in productTypes track by item.productTypeId" ng-model="productTypes.selectedItem" ng-required="required"></select>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.productCategoryId.$invalid }">
+                    <label>Product Category</label>
+                    <select class="form-control" ng-options="item.productCategoryName for item in productCategories track by item.productCategoryId" ng-model="productCategories.selectedItem" ng-required="required"></select>
+                </div>
+                <div ng-show="noPriceSelectionerror" class="help-block">
+                    <div style="color: #a94442;" >Select either Product Price Coin & Quantity or Product Price </div>
+                </div>
+               
+                <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.productPriceCoinId.$invalid }">
+                    <label for="productPriceCoinId" >Product Price Coin </label>
+                        <select class="form-control" ng-options="item.coinName for item in coinTypes track by item.coinId" ng-model="coinTypes.selectedItem" ></select>
+                        <div ng-messages="form.$submitted && form.productPriceCoinId.$error" class="help-block">
+                            <div ng-message="required">Product Price Coin is required</div>
+                        </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.productPriceCoinQuantity.$invalid }">
+                    <label for="productPriceCoinQuantity" >Product Price Coin Quantity</label>
+                    <input type="text" class="form-control" name="productPriceCoinQuantity" ng-model="productPriceCoinQuantity" only-digits min-value="1"  />
+                        <div ng-messages="form.$submitted && form.productPriceCoinQuantity.$error" class="help-block">
+                            <div ng-message="required">Product Price Coin Quantity is required</div>
+                        </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.productPrice.$invalid }">
+                    <label for="productPrice" >Product Price </label>
+                        <input type="text" class="form-control" name="productPrice" ng-model="productPrice" only-digits desimal-allowed="true" min-value="1"  />
+                        <div ng-messages="form.$submitted && form.productPrice.$error" class="help-block">
+                            <div ng-message="required">Product Price  is required</div>
+                        </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.isApplicableForAllStores.$invalid }">
+                    <label for="isApplicableForAllStores" >Is Applicable For All Stores</label>
+                        <input type="checkbox" name="isApplicableForAllStores" ng-model="isApplicableForAllStores"  value="true"/>
+                        <div ng-messages="form.$submitted && form.isApplicableForAllStores.$error" class="help-block">
+                            <div ng-message="required">Is Applicable For All Stores is required</div>
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="active" >Active</label>
+                    <input type="checkbox" name="active" ng-model="active" value="true"/>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.productIcon.$invalid }">
+                    <label for="productIcon" >Product Image Path</label>
+                    <input type = "text"  class="form-control" name="productIcon" ng-model="productIcon"   />
+                </div>
+                <div class="form-group">
+                    <button ng-disabled="loading" class="btn btn-primary" ng-click="handleSubmit();">Save</button>
+                    <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

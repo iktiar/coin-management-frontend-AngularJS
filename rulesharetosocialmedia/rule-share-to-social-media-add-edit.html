@@ -1,0 +1,61 @@
+<div class="alert  alert-dismissable {{error && 'alert-danger'|| 'alert-success'}}" ng-if="message" style="display:{{message && 'block' || 'none'}}">
+    <button type="button" class="close" onclick="$('.alert').hide()">×</button>
+    {{message}}
+</div>
+<h3 class="form-heading">{{operation}} Share To Social Media Rule</h3>		
+
+<div>
+    <form  name="shareToSocialMediaRuleForm" ng-submit="shareToSocialMediaRuleForm.$valid && handleSubmit()" novalidate>
+        <div class="row">  
+            <div class="col-md-4">
+                <div class="form-group" ng-class="{ 'has-error': shareToSocialMediaRuleForm.$submitted && shareToSocialMediaRuleForm.dayBetweenRepetitiveShare.$invalid }">
+                    <label for="dayBetweenRepetitiveShare" >Day Between Repetitive Share</label>
+                    <input name="dayBetweenRepetitiveShare" class="form-control" id="dayBetweenRepetitiveShare" ng-model="dayBetweenRepetitiveShare" required only-digits min-value="1" >
+                    <div ng-messages="shareToSocialMediaRuleForm.$submitted && shareToSocialMediaRuleForm.dayBetweenRepetitiveShare.$error" class="help-block">
+                        <div ng-message="required">Day Between Repetitive Share is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label >Rule Name</label>
+                    <select class="form-control" ng-options="rule.ruleName for rule in coinRules|filter:{'ruleItemId':3} track by rule.ruleId " ng-model="coinRules.selectedRule" ng-required="required"></select>
+                </div>
+                
+                <div class="form-group" ng-class="{ 'has-error': shareToSocialMediaRuleForm.$submitted && shareToSocialMediaRuleForm.socialMediaId.$invalid }">
+                    <label for="socialMediaId" >Social media</label>
+                        <select class="form-control" ng-options="item.socialMediaName for item in socialMediaList track by item.socialMediaId" ng-model="socialMediaList.selectedItem" ></select>
+                        <div ng-messages="shareToSocialMediaRuleForm.$submitted && shareToSocialMediaRuleForm.coinId.$invalid" class="help-block">
+                            <div ng-message="required">Social Media is required</div>
+                        </div>
+                </div>
+               
+                 <div class="form-group" ng-class="{ 'has-error': shareToSocialMediaRuleForm.$submitted && shareToSocialMediaRuleForm.coinId.$invalid }">
+                    <label for="productPriceCoinId" >Coin</label>
+                        <select class="form-control" ng-options="item.coinName for item in coinTypes track by item.coinId" ng-model="coinTypes.selectedItem" ></select>
+                        <div ng-messages="shareToSocialMediaRuleForm.$submitted && shareToSocialMediaRuleForm.productPriceCoinId.$error" class="help-block">
+                            <div ng-message="required">Coin is required</div>
+                        </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': shareToSocialMediaRuleForm.$submitted && shareToSocialMediaRuleForm.coinQuantity.$invalid }">
+                    <label for="coinQuantity" >Coin Quantity</label>
+                    <input type="text" class="form-control" name="coinQuantity" ng-model="coinQuantity" required only-digits min-value="1"  />
+                        <div ng-messages="shareToSocialMediaRuleForm.$submitted && shareToSocialMediaRuleForm.coinQuantity.$error" class="help-block">
+                            <div ng-message="required">Coin Quantity is required</div>
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" ng-model="description" class="form-control" rows="3" ng-model="socialmediaRule.description" /></textarea>   
+                </div>
+                <div class="form-group">
+                    <label for="active" >Active</label>
+                    <input name="active" id="active" ng-model="socialmediaRule.active" type="checkbox" value="true">
+                </div>
+
+                <div class="form-group">
+                    <button  class="btn btn-primary" >Save</button>
+                    <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

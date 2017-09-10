@@ -1,0 +1,60 @@
+<div class="alert  alert-dismissable {{error && 'alert-danger'|| 'alert-success'}}" ng-if="message" style="display:{{message && 'block' || 'none'}}">
+    <button type="button" class="close" onclick="$('.alert').hide()">×</button>
+    {{message}}
+</div>
+<h3>{{operation}} Daily Check-In Rule</h3>	
+<div>
+    <form  name="dailyCheckInForm" ng-submit="dailyCheckInForm.$valid && handleSubmit()" novalidate>
+
+        <div class="row">  
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label >Rule Name</label>
+                    <select class="form-control" ng-options="rule.ruleName for rule in coinRules|filter:{'ruleItemId':2} track by rule.ruleId " ng-model="coinRules.selectedRule" ng-required="required"></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="coinId" >Coin</label>
+                    <select class="form-control" ng-options="coin.coinName for coin in coins track by coin.coinId" ng-model="coins.selectedCoin" ng-required="required"></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="dailyCheckInDayTypeId" >Day Type</label>
+                    <select class="form-control" ng-options="type.dailyCheckInDayTypeName for type in dayTypes track by type.dailyCheckInDayTypeId" ng-model="dayTypes.selectedDayType" ng-required="required"></select>
+                </div>
+                
+                <div class="form-group" ng-class="{ 'has-error': dailyCheckInForm.$submitted && dailyCheckInForm.dayNumber.$invalid }">
+                    <label for="dayNumber"  ng-model="dailyCheckInRule.dayNumber">Day Number</label>
+
+                    <input name="dayNumber" class="form-control" id="dayNumber" ng-model="dailyCheckInRule.dayNumber" required only-digits min-value="1" >
+                    <div ng-messages="dailyCheckInForm.$submitted && dailyCheckInForm.dayNumber.$error" class="help-block">
+                        <div ng-message="required">Day Number is required</div>
+                    </div>
+                </div>
+
+                <div class="form-group " ng-class="{ 'has-error': dailyCheckInForm.$submitted && dailyCheckInForm.coinQuantity.$invalid }">
+                    <label for="coinQuantity" >Coin Quantity</label>
+                    <input name="coinQuantity" class="form-control" id="coinQuantity" ng-model="dailyCheckInRule.coinQuantity" required only-digits min-value="1" >
+                    <div ng-messages="dailyCheckInForm.$submitted && dailyCheckInForm.coinQuantity.$error" class="help-block">
+                        <div ng-message="required">Coin Quantity is required</div>
+                    </div>
+                
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description"  class="form-control" rows="3" ng-model="dailyCheckInRule.description" /></textarea>   
+                </div>
+                
+                <div class="form-group">
+                    <label for="active" >Active</label>
+                    <input name="active"  id="active" ng-model="dailyCheckInRule.active" type="checkbox" value="true">
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary" >Save</button>
+                    <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

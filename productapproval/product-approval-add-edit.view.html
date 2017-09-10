@@ -1,0 +1,74 @@
+<div class="alert  alert-dismissable {{error && 'alert-danger'|| 'alert-success'}}" ng-if="message" style="display: {{message && 'block' || 'none'}}">
+    <button type="button" class="close" onclick="$('.alert').hide()">×</button>
+     {{message}}
+</div>
+<h3 class="form-heading">{{operation}} Product Approval</h3>
+<div >
+    <form name="form" ng-submit="form.$valid && handleSubmit()" novalidate>
+        <div class="row">  
+            <div class="col-md-4">
+                <div class="form-group" >
+                    <label  >Product Name</label>
+                    <label  >: {{productApprovalLog.productName}}</label>
+                    <span ng-if="operation == 'Update' && productDetails.productName != productApprovalLog.productName">(Current value <mark style="background-color: #ffc107" > {{productDetails.productName}}</mark> )</span>
+                </div>
+                <div class="form-group" >
+                    <label  >Product Type</label>
+                    <label  >: {{productApprovalLog.productTypeName}}</label>
+                    <span ng-if="operation == 'Update' && productDetails.productTypeName != productApprovalLog.productTypeName">(Current value <mark style="background-color: #ffc107" > {{productDetails.productTypeName}}</mark> )</span>
+                </div>
+               
+                <div class="form-group" >
+                    <label  >Product Category</label>
+                    <label  >: {{productApprovalLog.productCategoryName}}</label>
+                    <span ng-if="operation == 'Update' && productDetails.productCategoryName != productApprovalLog.productCategoryName">(Current value <mark style="background-color: #ffc107" > {{productDetails.productCategoryName}}</mark> )</span>
+                </div>
+                <div class="form-group" >
+                    <label  >Product Price Coin</label>
+                    <label  >: {{productApprovalLog.coinName}}</label>
+                    <span ng-if="operation == 'Update' && productDetails.coinName != productApprovalLog.coinName">(Current value <mark style="background-color: #ffc107" > {{productDetails.coinName}}</mark> )</span>
+                </div>
+                <div class="form-group" >
+                    <label  >Product Price Coin Quantity</label>
+                    <label  >: {{productApprovalLog.productPriceCoinQuantity}}</label>
+                    <span ng-if="operation == 'Update' && productDetails.productPriceCoinQuantity != productApprovalLog.productPriceCoinQuantity">(Current value <mark style="background-color: #ffc107" > {{productDetails.productPriceCoinQuantity}}</mark> )</span>
+                </div>
+                <div class="form-group" >
+                    <label  >Is Applicable For All Stores?</label>
+                    <label  >: {{productApprovalLog.isApplicableForAllStores}}</label>
+                    <span ng-if="operation == 'Update' && productDetails.isApplicableForAllStores != productApprovalLog.isApplicableForAllStores">(Current value <mark style="background-color: #ffc107" > {{productDetails.isApplicableForAllStores}}</mark> )</span>
+                </div>
+                <div class="form-group" >
+                    <label  >Product Price</label>
+                    <label  >: {{productApprovalLog.productPrice}}</label>
+                    <span ng-if="operation == 'Update' && productDetails.productPrice != productApprovalLog.productPrice">(Current value <mark style="background-color: #ffc107" > {{productDetails.productPrice}}</mark> )</span>
+                </div>
+                <div class="form-group" >
+                    <label  >Active</label>
+                    <label  >: {{productApprovalLog.active}}</label>
+                    <span ng-if="operation == 'Update' && productDetails.active != productApprovalLog.active">(Current value <mark style="background-color: #ffc107" > {{productDetails.active}}</mark> )</span>
+                </div>
+                <div class="form-group" >
+                    <label  >Product Image Path</label>
+                    <label  >: {{productApprovalLog.productIcon}}</label>
+                    <span ng-if="operation == 'Update' && productDetails.productIcon != productApprovalLog.productIcon">(Current value <mark style="background-color: #ffc107" > {{productDetails.productIcon}}</mark> )</span>
+                </div>
+                <div class="form-group " ng-class="{ 'has-error': form.$submitted && form.adminRemarks.$invalid }">
+                    <label for="coinQuantity" >Admin Remarks</label>
+                    <textarea name="adminRemarks" class="form-control" id="adminRemarks" ng-model="productApprovalLog.adminRemarks" required  ></textarea>
+                    <div ng-messages="form.$submitted && form.adminRemarks.$error" class="help-block">
+                        <div ng-message="required">Admin Remarks Is Required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label >Approval</label>
+                    <select class="form-control" ng-options="option.name for option in approvalOptions track by option.id" ng-model="approvalOptions.selectedApprovalStatus" ></select>
+                </div>
+                <div class="form-group">
+                    <button ng-disabled="loading" class="btn btn-primary" ng-click="handleSubmit();">Submit</button>
+                    <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

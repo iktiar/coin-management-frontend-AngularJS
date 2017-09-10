@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" ng-app="coinManagement" ng-controller="MainController">
+    <head>
+        <title>Coin Management</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="Coin Management, IPVision" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+        <link href="sb-admin-theme/dist/css/sb-admin-2.css" rel='stylesheet' type='text/css' />
+        
+        <!-- Custom CSS -->
+        <link href="css/font-awesome.css" rel="stylesheet"> 
+        <!---//webfonts--->  
+        
+        <link href="bower_components/angularjs-datepicker/src/css/angular-datepicker.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body ng-attr-id="{{!isLoggedIn() && 'login' || ''}}" style="background-color:#FFFFFF !important;">
+        
+        <div ui-view></div>
+        <link href="css/custom.css" rel="stylesheet">
+        <!-- Metis Menu Plugin JavaScript -->
+        
+         <!-- angular scripts -->
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+        <script src="bower_components/ngstorage/ngStorage.min.js"></script>
+        <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+        <script src="bower_components/lodash/dist/lodash.js"></script>
+        <script src="bower_components/crypto-js/crypto-js.js"></script>
+        <script src="bower_components/angularjs-datepicker/src/js/angular-datepicker.js"></script>
+        
+        <!-- application scripts -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/message.js"></script>
+        
+        <script src="js/bootstrap.min.js"></script>
+        <script src="app.module.js"></script>
+        <script src="app.config.js"></script>
+        
+        <script src="coinrule/coin-rule-add-edit.controller.js"></script>
+        <script src="coinrule/coin-rule-list.controller.js"></script>
+        <script src="coinbundle/coin-bundle-add-edit.controller.js"></script>
+        <script src="coinbundle/coin-bundle-list.controller.js"></script>
+        <script src="referralrule/referral-rule-list-controller.js"></script>
+        <script src="referralrule/referral-rule-add-edit-controller.js"></script>
+        <script src="dwelltimerule/dwell-time-rule-list-controller.js"></script>
+        <script src="dwelltimerule/dwell-time-rule-add-edit-controller.js"></script>
+        <script src="dailycheckinrule/daily-check-in-rule-list-controller.js"></script>
+        <script src="dailycheckinrule/daily-check-in-rule-add-edit-controller.js"></script>
+        <script src="productapproval/product-approval-list-controller.js"></script>
+        <script src="productapproval/product-approval-add-edit-controller.js"></script>
+        <script src="cashout/cashout-list-controller.js"></script>
+        <script src="cashout/cashout-add-edit-controller.js"></script>
+        <script src="coins/coin-list.controller.js"></script>
+        <script src="coins/coin-add-edit.controller.js"></script>
+        <script src="roles/role-list.controller.js"></script>
+        <script src="roles/role-add-edit.controller.js"></script>
+        <script src="products/product-list.controller.js"></script>
+        <script src="products/product-add-edit.controller.js"></script>
+        <script src="bonusapproval/bonus-approval.controller.js"></script>
+        <script src="admincoinbuysell/coin-buy-sell.controller.js"></script>
+        <script src="coinexchangerate/coin-exchange-rate.controller.js"></script>
+        <script src="users/user-list.controller.js"></script>
+        <script src="users/user-add-edit.controller.js"></script>
+        <script src="login/login.controller.js"></script>
+        <script src="rulesharetosocialmedia/rule-share-to-social-media-add-edit.controller.js"></script>
+        <script src="rulesharetosocialmedia/rule-share-to-social-media-list.controller.js"></script>
+        <script src="ruleprofilecompletion/rule-profile-completion-add-edit.controller.js"></script>
+        <script src="ruleprofilecompletion/rule-profile-completion-list.controller.js"></script>
+         
+        <!-- application services -->
+        <script src="services/authentication.service.js"></script>
+        <script src="services/coin.service.js"></script>
+        <script src="services/cashout.service.js"></script>
+        <script src="services/role.service.js"></script>
+        <script src="services/product.service.js"></script>
+        <script src="services/coin.rule.service.js"></script>
+        <script src="services/coin.bundle.service.js"></script>
+        <script src="services/network.service.js"></script>        
+        <script src="services/referral.service.js"></script>
+        <script src="services/daily-check-in.service.js"></script>
+        <script src="services/product-approval.service.js"></script>
+        <script src="services/dwelltime.service.js"></script>
+        <script src="services/coin-exchange-rate.service.js"></script>
+        <script src="services/admin-coin-buy-sell.service.js"></script>
+        <script src="services/default.service.js"></script>
+        <script src="services/user.service.js"></script>
+        <script src="services/rule-share-to-social-media.service.js"></script>
+        <script src="services/rule-profile-completion.service.js"></script>
+        <!-- application helpers -->
+        <script src="helpers/fake-backend.js"></script>
+        
+        <!-- application directives -->
+        <script src="directives/only-digit.js"></script>
+        <script src="directives/dirPagination.js"></script>
+               
+        <!-- application constants -->
+        <script src="constants/app-constant.js"></script>
+    </body>
+</html>

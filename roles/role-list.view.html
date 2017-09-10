@@ -1,0 +1,52 @@
+<div class="alert  alert-dismissable {{error && 'alert-danger'|| 'alert-success'}}" ng-if="message" style="display:{{message && 'block' || 'none'}}">
+    <button type="button" class="close" onclick="$('.alert').hide()">×</button>
+    {{message}}
+</div>
+
+<div class="col-md-10">
+    <h3>Role List</h3>
+
+    <div class="input-group custom-search-form col-md-3">
+        <input type="text" class="form-control" placeholder="Search..." ng-model="search">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button">
+                <i class="fa fa-search"></i>
+            </button>
+        </span>
+    </div>
+
+    <div class="bs-example4" data-example-id="contextual-table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Role Name</th>
+                    <th>Active</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="role in data | filter:search | itemsPerPage: pageSize" current-page="currentPage">
+                    <td>{{role.roleName}}</td>
+                    <td>{{role.active && 'active'|| 'inactive'}}</td>
+                    <td><a href="#/role-add-edit/{{role.roleId}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+                        <a href="javascript:void(0)" ng-click="deleteRole(role.roleId)" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <a href="#/role-add-edit/new" class="btn btn-primary">Add New</a>
+        </div> 
+        
+        <div  class="other-controller" >
+            <div class="text-center float_left" >
+                <dir-pagination-controls boundary-links="true" max-size="10" auto-hide="false" template-url="directives/dirPagination.tpl.html"></dir-pagination-controls>
+            </div>
+            <div class="text-center pagination_row_count">
+              <label>Row count</label>  <input class="pagination_row_count_input form-control" type="number" min="1" max="100"  placeholder="perpage..." ng-model="pageSize">
+            </div>
+            
+        </div>
+    </div>
+
+</div>
